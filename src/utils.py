@@ -24,18 +24,12 @@ def draw_face_mesh(frame, results):
     return frame
 
 def draw_similarity_bar(frame, confidence, x=30, y= 110, w=260, h=18):
-    """ Dibujar un barra Horizontal (0..100%) en (x,y) con un ancho w y un alto h
-    confidence debe estar en [0,1] """
     pct = max(0.0, min(1.0, confidence))
 
-    # Marco de la barra
     cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 255), 2)
-    # Relleno de la barra (verde)
-    # Operacion Matemática para calcular el ancho del relleno
     fill_w = int(pct * w)
     cv2.rectangle(frame, (x + 2, y + 2), (x + fill_w - 2, y + h - 2), (0, 255, 0), -1)
 
-    # Texto centrado del %
     txt = f"{round(pct * 100, 1)}%"
     cv2.putText(frame, txt, (x + w + 10, y + h - 3),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2

@@ -37,7 +37,17 @@ ProjectR - CPC/
 │
 └── .venv/                   # Entorno virtual (local)
 ```
+# ./App.py
+    - Sera el frontend del proyecto
+    -Streamlit:
+        - Usa un flujo secuencial (de arriba hacia abajo)
+        - Reacciona un tiempo real a widgets
 
+# Secciones
+- Streamlit.sidebar.radio() -> Menu Lateral on las 3 vistas principales
+- reconocimiento en vivo -> Abre camara -> usar mediapipe -> comparar landmarks -> mostrar resultado
+- Registro de rostros -> Permite ingresar el nombre -> toma la foto -> Extrae los landmarks -> guardar landmarks -> mostrar resultado
+- Ver registros -> Lista nombres e imagenes guardadas -> data/capturas/ -> Permite seleccionar una imagen -> mostrar resultado
 ---
 
 ## 🛠️ Instalación rápida

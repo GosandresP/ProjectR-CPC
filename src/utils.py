@@ -1,8 +1,8 @@
 import cv2
 import mediapipe as mp
 
-
 mp_drawing = mp.solutions.drawing_utils
+mp_drawing_styles = mp.solutions.drawing_styles
 mp_face_mesh = mp.solutions.face_mesh
 
 def init_camera(width=640, height=480):
@@ -11,15 +11,34 @@ def init_camera(width=640, height=480):
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
     return cap
 
-def draw_face_mesh(frame, results):
+def draw_face_mesh_green(frame, results):
     if results.multi_face_landmarks:
+        # Estilo personalizado para malla verde
+        tesselation_style = mp_drawing_styles.get_default_face_mesh_tesselation_style()
+        tesselation_style.color = (0, 255, 0)  # Verde
+
+        contours_style = mp_drawing.DrawingSpec(
+            color=(0, 255, 0),  # Verde
+            thickness=1,
+            circle_radius=1
+        )
+
         for face_landmarks in results.multi_face_landmarks:
+            # Dibujar la teselación (malla completa)
             mp_drawing.draw_landmarks(
                 image=frame,
                 landmark_list=face_landmarks,
                 connections=mp_face_mesh.FACEMESH_TESSELATION,
                 landmark_drawing_spec=None,
-                connection_drawing_spec=mp_drawing.DrawingSpec(color=(0,255,0), thickness=1, circle_radius=1)
+                connection_drawing_spec=tesselation_style)
+
+            # Dibujar los contornos
+            mp_drawing.draw_landmarks(
+                image=frame,
+                landmark_list=face_landmarks,
+                connections=mp_face_mesh.FACEMESH_CONTOURS,
+                landmark_drawing_spec=None,
+                connection_drawing_spec=contours_style
             )
     return frame
 

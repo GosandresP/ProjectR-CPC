@@ -2,7 +2,7 @@
 # usando la distancia euclidiana entre los landmarks
 
 import numpy as np
-from db.database import get_all_faces
+from src.db.database import get_all_faces
 
 def compare_faces(new_landmarks, threshold=0.6):
     """

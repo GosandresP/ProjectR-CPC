@@ -9,7 +9,7 @@ if str(project_root) not in sys.path:
 import warnings; warnings.filterwarnings("ignore")
 import cv2, mediapipe as mp
 import numpy as np
-from utils import  init_camera, draw_face_mesh, draw_similarity_bar
+from utils import  init_camera, draw_face_mesh_green, draw_similarity_bar
 from db.database import init_db, insert_face
 from recognition import compare_faces
 
@@ -19,26 +19,6 @@ mp_face_mesh = mp.solutions.face_mesh
 # Parametros de la camara
 THRESHOLD = 0.6  # umbral de similitud para reconocer un rostro
 ALPHA_SMOOTH = 0.5 # Suavizado de la barra de confianza
-
-# Configurar el detector de rostros
-def draw_face_mesh_green(frame, results):
-   if results.multi_face_landmarks:
-       mp_drawing = mp.solutions.drawing_utils
-       mp_drawing_styles = mp.solutions.drawing_styles
-
-       for face_landmarks in results.multi_face_landmarks:
-           mp_drawing.draw_landmarks(
-               image=frame,
-               landmark_list=face_landmarks,
-               connections=mp_face_mesh.FACEMESH_TESSELATION,
-               landmark_drawing_spec=None,
-               connection_drawing_spec=mp_drawing_styles.get_default_face_mesh_tesselation_style())
-           mp_drawing.draw_landmarks(
-               image=frame,
-               landmark_list=face_landmarks,
-               connections=mp_face_mesh.FACEMESH_CONTOURS,
-           )
-   return frame
 
 # Definir la funciona main principal
 def main():
@@ -63,7 +43,6 @@ def main():
                 print("No se pudo acceder a la camara")
                 break
 
-            # frame = draw_face_mesh(frame, 1)
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             results = face_mesh.process(rgb)
 

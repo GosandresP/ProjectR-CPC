@@ -57,7 +57,7 @@ def main():
                 first = results.multi_face_landmarks[0]
                 landmarks = [(lm.x, lm.y, lm.z) for lm in first.landmark]
 
-                curr_name, dist = compare_faces(landmarks, threshold=THRESHOLD)
+                curr_name, dist, _ = compare_faces(landmarks, threshold=THRESHOLD)
                 curr_conf = max(0.0, min(1.0, 1.0 - dist))  # Convertir distancia a confianza
 
                 # Suavizado de la confianza
